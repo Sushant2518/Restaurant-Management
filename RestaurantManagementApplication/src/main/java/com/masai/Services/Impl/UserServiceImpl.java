@@ -26,7 +26,7 @@ import com.masai.model.User;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
-	private UserRepository ur;
+	private UserRepository userRepository;
 	@Autowired
 	private RolesAndAuthorityRepository rar;
 
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User addUser(User user) {
-		Optional<User> us = ur.findByEmail(user.getEmail());
+		Optional<User> us = userRepository.findByEmail(user.getEmail());
 		if (us.isPresent()) {
 			throw new RuntimeException("user already present in database");
 		}
@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService {
 		user.setReservations(new ArrayList<>());
 		String hashPass= encoder.encode(user.getPassword());
 		user.setPassword(hashPass);
-		return ur.save(user);
+		return userRepository.save(user);
 	}
 
 	@Override
 	public User update(User user) {
-		User useropt = ur.findByEmail(user.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+		User useropt = userRepository.findByEmail(user.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
 		Set<RolesAndAuthority> set = user.getAuthSet();
 		Set<RolesAndAuthority> managedSet = useropt.getAuthSet();
 		for (RolesAndAuthority roles : set) {
@@ -68,32 +68,32 @@ public class UserServiceImpl implements UserService {
 		}
 
 		useropt.setAuthSet(managedSet);
-		return ur.save(useropt);
+		return userRepository.save(useropt);
 	}
 
 	@Override
 	public List<User> findAllUser() {
 
-		return ur.findAll();
+		return userRepository.findAll();
 	}
 
 	@Override
 	public User findByEmail(String email) {
 		
-		return ur.findByEmail(email).orElseThrow(() -> new RuntimeException("no user find with email"));
+		return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("no user find with email"));
 	}
 
 	@Override
 	public User deletUser(String email) {
-		User user = ur.findByEmail(email).orElseThrow(() -> new RuntimeException("no user find with email"));
-		ur.delete(user);
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("no user find with email"));
+		userRepository.delete(user);
 		return user;
 	}
 
 
 	@Override
 	public String login(LoginDTO logindto) {
-		Optional<User> user = ur.findByEmail(logindto.getEmail());
+		Optional<User> user = userRepository.findByEmail(logindto.getEmail());
 		if (!user.isPresent()) {
 			throw new RuntimeException("Wrong Email please provide correct email");
 		}

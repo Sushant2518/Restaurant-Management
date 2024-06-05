@@ -24,39 +24,39 @@ import com.masai.model.User;
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
-	private UserService us;
+	private UserService userService;
 
 	@PostMapping("/register")
 	public ResponseEntity<User> createUserHandle(@RequestBody User user) {
-		User usr = us.addUser(user);
+		User usr = userService.addUser(user);
 		return new ResponseEntity<User>(usr, HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")
 	public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDTO logindto) {
-		String token = us.login(logindto);
+		String token = userService.login(logindto);
 		JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
 		jwtAuthResponse.setAccessToken(token);
 		return new ResponseEntity<JWTAuthResponse>(jwtAuthResponse, HttpStatus.ACCEPTED);
 	}
     @PatchMapping("/update")
 	public ResponseEntity<User> updateUserHandle(@RequestBody User user) {
-        User usr=us.update(user);
+        User usr=userService.update(user);
         return new ResponseEntity<User>(usr, HttpStatus.ACCEPTED);
 	}
     @GetMapping("/getall")
     public ResponseEntity<List<User>> findAllUser(){
-    	List<User> list= us.findAllUser();
+    	List<User> list= userService.findAllUser();
     	return new ResponseEntity<List<User>>(list, HttpStatus.OK);
     }
     @GetMapping("/getbyemail")
     public ResponseEntity<User> findByEmail(@RequestParam("email") String email){
-    	User usr= us.findByEmail(email);
+    	User usr= userService.findByEmail(email);
     	return new ResponseEntity<User>(usr, HttpStatus.OK);
     }
     @DeleteMapping("/delete")
     public ResponseEntity<User> deleteByEmail(@RequestParam("email") String email){
-    	User usr= us.deletUser(email);
+    	User usr= userService.deletUser(email);
     	return new ResponseEntity<User>(usr, HttpStatus.OK);
     }
 }

@@ -22,20 +22,20 @@ import com.masai.model.Menu;
 @RequestMapping("/menu")
 public class MenuController {
 	@Autowired
-	private MenuService menuServ;
+	private MenuService menuService;
 	@PostMapping("/addMenu")
 	public ResponseEntity<Menu> addMenu(@RequestBody Menu menu){
-		Menu men= menuServ.addMenu(menu);
+		Menu men= menuService.addMenu(menu);
 		return new ResponseEntity<Menu>(men, HttpStatus.ACCEPTED);
 	}
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Menu>> findAllMenu(){
-		List<Menu> list=menuServ.findAll();
+		List<Menu> list=menuService.findAll();
 		return new ResponseEntity<List<Menu>>(list, HttpStatus.OK);
 	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Menu> delete(@RequestParam("id") long id){
-		Menu menu= menuServ.deleteMenu(id);
+		Menu menu= menuService.deleteMenu(id);
 		return new ResponseEntity<Menu>(menu, HttpStatus.ACCEPTED);
 		
 	}

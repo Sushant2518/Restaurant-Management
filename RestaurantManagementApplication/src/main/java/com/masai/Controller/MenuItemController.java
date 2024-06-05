@@ -17,15 +17,15 @@ import com.masai.model.MenuItem;
 @RequestMapping("/menuitem")
 public class MenuItemController {
 	@Autowired
-	private MenuItemService menuItemserv;
+	private MenuItemService menuItemService;
     @PostMapping("/createmenuitem")
 	public ResponseEntity<MenuItem> createMenuitem(@RequestBody MenuItem menuItem) {
-       MenuItem menu= menuItemserv.createMenuItem(menuItem);
+       MenuItem menu= menuItemService.createMenuItem(menuItem);
        return new ResponseEntity<MenuItem>(menu, HttpStatus.OK);
 	}
     @DeleteMapping("/delete")
     public ResponseEntity<MenuItem> delete(@RequestParam long id){
-    	MenuItem menu= menuItemserv.deleteMenuItem(id);
+    	MenuItem menu= menuItemService.deleteMenuItem(id);
     	return new ResponseEntity<MenuItem>(menu, HttpStatus.ACCEPTED);
     }
 }

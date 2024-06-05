@@ -16,15 +16,15 @@ import com.masai.model.Tables;
 @RequestMapping("/tables")
 public class TablesController {
 	@Autowired
-	private TablesService tableserv;
+	private TablesService tableService;
 	@PostMapping("/createtable")
 	public ResponseEntity<Tables> createTable(@RequestBody Tables table){
-		Tables tab= tableserv.createTable(table);
+		Tables tab= tableService.createTable(table);
 		return new ResponseEntity<Tables>(tab, HttpStatus.CREATED);
 	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Tables> deleteTable(@RequestParam ("id") long id){
-		Tables tab= tableserv.deleteTable(id);
+		Tables tab= tableService.deleteTable(id);
 		return new ResponseEntity<Tables>(tab, HttpStatus.ACCEPTED);
 	}
 }

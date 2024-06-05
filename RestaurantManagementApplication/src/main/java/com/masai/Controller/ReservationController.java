@@ -17,15 +17,15 @@ import com.masai.model.Reservation;
 @RequestMapping("/reservation")
 public class ReservationController {
 	@Autowired
-	private ReservationService resServ;
+	private ReservationService reservationService;
 	@PostMapping("/createRes")
 	public ResponseEntity<Reservation> createRes(@RequestBody Reservation res){
-		Reservation resr=resServ.createReservation(res);
+		Reservation resr=reservationService.createReservation(res);
 		return new ResponseEntity<Reservation>(resr, HttpStatus.CREATED);
 	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Reservation> delete(@RequestParam long id){
-		Reservation res= resServ.deleteReservation(id);
+		Reservation res= reservationService.deleteReservation(id);
 		return new ResponseEntity<Reservation>(res, HttpStatus.ACCEPTED);
 	}
 }

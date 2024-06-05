@@ -17,15 +17,15 @@ import com.masai.model.Restaurant;
 @RequestMapping("/restaurant")
 public class RestaurantController {
 	@Autowired
-	private RestaurantService restServ;
+	private RestaurantService restaurantService;
 	@PostMapping("/create")
 	public ResponseEntity<Restaurant> createRest(@RequestBody Restaurant rest){
-		Restaurant resta= restServ.addRestaurant(rest);
+		Restaurant resta= restaurantService.addRestaurant(rest);
 		return new ResponseEntity<Restaurant>(resta, HttpStatus.OK);
 	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Restaurant> delete(@RequestParam("id") long id){
-		Restaurant resta= restServ.deleteRestaurant(id);
+		Restaurant resta= restaurantService.deleteRestaurant(id);
 		return new ResponseEntity<Restaurant>(resta, HttpStatus.OK);
 	}
 }

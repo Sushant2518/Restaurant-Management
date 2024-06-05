@@ -20,18 +20,18 @@ import com.masai.model.Order;
 @RequestMapping("/orders")
 public class OrderController {
 	@Autowired
-	private OrderService orderserv;
+	private OrderService orderService;
 	@PostMapping("/createorder")
 	ResponseEntity<Order> createorder(@RequestBody Order order){
-		return new ResponseEntity<Order>(orderserv.createOrder(order), HttpStatus.OK);
+		return new ResponseEntity<Order>(orderService.createOrder(order), HttpStatus.OK);
 	}
 	@GetMapping("/getAll")
 	public ResponseEntity<List<Order>> getAll(){
-		return new ResponseEntity<List<Order>>(orderserv.getAllOrder(), HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<Order>>(orderService.getAllOrder(), HttpStatus.ACCEPTED);
 	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<Order> deleteorder(@RequestParam ("id") long id){
-		return new ResponseEntity<Order>(orderserv.deleteOrder(id), HttpStatus.OK);
+		return new ResponseEntity<Order>(orderService.deleteOrder(id), HttpStatus.OK);
 	}
 
 }

@@ -17,13 +17,13 @@ import com.masai.model.OrderItem;
 @RequestMapping("/orderitem")
 public class OrderItemController {
 	@Autowired
-	private OrderItemService orderitemserv;
+	private OrderItemService orderItemService;
 	@PostMapping("/create")
 	public ResponseEntity<OrderItem> createOrderItem(@RequestBody OrderItem orderitem){
-		return new ResponseEntity<OrderItem>(orderitemserv.createOrderItem(orderitem), HttpStatus.OK);
+		return new ResponseEntity<OrderItem>(orderItemService.createOrderItem(orderitem), HttpStatus.OK);
 	}
 	@DeleteMapping("/delete")
 	public ResponseEntity<OrderItem> delete(@RequestParam("id") long id){
-		return new ResponseEntity<OrderItem>(orderitemserv.deleteordeItem(id), HttpStatus.ACCEPTED);
+		return new ResponseEntity<OrderItem>(orderItemService.deleteordeItem(id), HttpStatus.ACCEPTED);
 	}
 } 
